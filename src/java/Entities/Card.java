@@ -49,7 +49,7 @@ public class Card {
         this.customerId = customerId;
     }
 
-    public int getCarExpiredate() {
+    public int getCardExpiredate() {
         return carExpiredate;
     }
 

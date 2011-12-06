@@ -4,10 +4,16 @@
  */
 package Server;
 
+import DAO.DAOCustomer;
+import Entities.Customer;
 import Tracking.Tracking;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,13 +64,25 @@ public class MSSQLConnection {
     /************************************************/
     public static void main(String[] args) {
         //Test connection
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=bank_db1";
-        MSSQLConnection.setDBConnection(url, "sa", "sa");
-        Connection conn = MSSQLConnection.getConnection();
-        if(conn == null){
-            Tracking.trace("keet noi that bai");
-        }else{
-            Tracking.trace("Ket noi thanh cong");
+        char i = 'A';
+        Customer customer;
+            while (i != 'K') {
+            customer = new Customer(0, "Nguyen Van " + i, "Address" + i, "01689932623" + i, "thaonx2890@gmail.com" + i);
+            i++;
+            DAOCustomer.insertCustomer(customer);
         }
+//            reparedStatement ps = conn.prepareStatement(sql);
+
+//                String sql = "INSERT card(customerid,pin,expiredate) value(?,?,?)";
+//                PreparedStatement ps = conn.prepareStatement(sql);
+//                ps.setInt(1, 20);
+//                ps.setInt(2, 123321);
+//                java.util.Date now = new java.util.Date();
+//                java.sql.Date date = new Date(now.getTime());
+//                ps.setInt(3, 1000);
+//                //ps.execute();
+//                System.out.println(date);
+           
+        
     }
 }

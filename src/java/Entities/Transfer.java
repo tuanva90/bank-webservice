@@ -4,6 +4,8 @@
  */
 package Entities;
 
+import java.sql.Date;
+
 /**
  *
  * @author SPRING GRASS
@@ -14,7 +16,7 @@ public class Transfer {
     private int sourceAccountId;
     private int destinationAccountId;
     private int amount;
-    private String date;
+    private Date date;
 
     public Transfer() {
     }
@@ -23,7 +25,7 @@ public class Transfer {
         this.id = id;
     }
 
-    public Transfer(int id, int sourceAccountId, int destinationAccountId, int amount, String date) {
+    public Transfer(int id, int sourceAccountId, int destinationAccountId, int amount, Date date) {
         this.id = id;
         this.sourceAccountId = sourceAccountId;
         this.destinationAccountId = destinationAccountId;
@@ -63,11 +65,11 @@ public class Transfer {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

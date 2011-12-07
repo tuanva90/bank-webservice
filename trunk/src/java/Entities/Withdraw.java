@@ -4,36 +4,38 @@
  */
 package Entities;
 
+import java.sql.Date;
+
 /**
  *
  * @author SPRING GRASS
  */
 public class Withdraw {
 
-    private Integer id;
+    private int id;
     private int accountId;
     private int amount;
-    private String date;
+    private Date date;
 
     public Withdraw() {
     }
 
-    public Withdraw(Integer id) {
+    public Withdraw(int id) {
         this.id = id;
     }
 
-    public Withdraw(Integer id, int accountId, int amount, String date) {
+    public Withdraw(int id, int accountId, int amount, Date date) {
         this.id = id;
         this.accountId = accountId;
         this.amount = amount;
         this.date = date;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,11 +55,11 @@ public class Withdraw {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

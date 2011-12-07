@@ -27,7 +27,6 @@ public class DAOQuery {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, query.getAccountId());
-         
             boolean rs = ps.execute();
             conn.close();
         } catch (SQLException ex) {

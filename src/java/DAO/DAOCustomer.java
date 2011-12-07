@@ -69,17 +69,5 @@ public class DAOCustomer {
 
     }
 
-    public static void main(String[] args) {
-        // Test insert  customer
-//        char i = 'A';
-        Customer customer;
-//        while (i != 'K') {
-//            customer = new Customer(0, "Nguyen Van " + i, "Address" + i, "01689932623" + i, "thaonx2890@gmail.com" + i);
-//            i++;
-//            DAOCustomer.insertCustomer(customer);
-//        }
-        customer = DAOCustomer.getCustomer(20);
-        Tracking.trace(customer.getCustomerName());
-
-    }
+  
 }

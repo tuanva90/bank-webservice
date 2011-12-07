@@ -55,7 +55,7 @@ public class DAOTransfer {
                 transfer.setSourceAccountId(sourceAccountId);
                 transfer.setDestinationAccountId(rs.getInt("destination_account_id"));
                 transfer.setAmount(rs.getInt("amount"));
-                transfer.setDate(rs.getString("date"));
+                transfer.setDate(rs.getDate("date"));
              }
             return transfer;
         } catch (SQLException ex) {
@@ -83,24 +83,13 @@ public class DAOTransfer {
                 transfer.setSourceAccountId(rs.getInt("source_account_id"));
                 transfer.setDestinationAccountId(rs.getInt("destination_account_id"));
                 transfer.setAmount(rs.getInt("amount"));
-                transfer.setDate(rs.getString("date"));
+                transfer.setDate(rs.getDate("date"));
              }
             return transfer;
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-
-    public static void main(String[] args){
-        Transfer transfer = new Transfer(3,36,56,200,"bao2");
-        insertTransfer(transfer);
-        transfer=getTransferSource(34);
-        System.out.print(transfer.getAmount());
-        System.out.print(transfer.getDate());
-        System.out.print(transfer.getDestinationAccountId());
-        System.out.print(transfer.getSourceAccountId());
-        System.out.print(transfer.getId());
     }
 }
 

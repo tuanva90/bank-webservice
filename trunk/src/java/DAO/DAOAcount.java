@@ -56,6 +56,24 @@ public class DAOAcount {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDouble(1, account.getAccountBalance());
+            ps.setInt(2, account.getCustomerId());
+            ps.execute();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAcount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Update tai khoan sau khi thuc hien giao dich
+     * @param account
+     */
+     public static void updateAccount(Account account){
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "UPDATE account SET account_balance=? WHERE account_id=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, account.getAccountBalance());
             ps.setInt(2, account.getAccountId());
             ps.execute();
             conn.close();
@@ -63,10 +81,12 @@ public class DAOAcount {
             Logger.getLogger(DAOAcount.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public static void main(String[] args) {
+    public static void main(String[] args) {
          // Test insert  customer
-        Account  account = new Account(0, 5000, 1);
+        Account  account = new Account(3, 5000, 1);
         DAOAcount.insertAccount(account);
+        account.setAccountBalance(20009);
+        DAOAcount.updateAccount(account);
+
     }
 }

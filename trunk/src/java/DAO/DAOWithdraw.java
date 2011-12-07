@@ -20,7 +20,9 @@ import java.util.logging.Logger;
  */
 public class DAOWithdraw {
 
-   public static void insertWithdraw(Withdraw withdraw){
+    public static int LIMIT = 10000;
+
+    public static void insertWithdraw(Withdraw withdraw){
         Connection conn = MySQLConnection.getConnection();
         String sql = "INSERT INTO withdraw (account_id, amount, date)"
                 + "VALUES (?, ?, NOW())";
@@ -61,4 +63,31 @@ public class DAOWithdraw {
             return null;
         }
     }
+
+   /**
+    * Kiem tra so tien rut co vuot qua gioi han moi ngay khong
+    * @param accountId
+    * @return
+    */
+   public static boolean checkDailyLimit(int accountId, int amount) {
+        int dailyLimit = amount;
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "SELECT SUM(amount) AS total FROM withdraw WHERE account_id = ? "
+                + "and DATE(date) = DATE(NOW())";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                dailyLimit += rs.getInt("total");
+            }
+       } catch (SQLException ex) {
+            Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+
+        //Kiem tra gioi han rut tien
+        if(dailyLimit > LIMIT) return false;
+
+        return true;
+   }
 }

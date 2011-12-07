@@ -15,21 +15,21 @@ public class Query {
     public Query() {
     }
 
-    public Query(Integer id) {
+    public Query(int id) {
         this.id = id;
     }
 
-    public Query(Integer id, int accountId, Date date) {
+    public Query(int id, int accountId, Date date) {
         this.id = id;
         this.accountId = accountId;
         this.date = date;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

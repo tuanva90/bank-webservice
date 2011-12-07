@@ -83,10 +83,8 @@ public class DAOAcount {
     }
     public static void main(String[] args) {
          // Test insert  customer
-        Account  account = new Account(3, 5000, 1);
-        DAOAcount.insertAccount(account);
-        account.setAccountBalance(20009);
-        DAOAcount.updateAccount(account);
+        Account  account = getAccount(101);
+        System.out.println(account);
 
     }
 }

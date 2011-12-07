@@ -5,16 +5,13 @@
 package Server;
 
 import DAO.DAOAcount;
-import DAO.DAOCustomer;
 import DAO.DAOQuery;
 import DAO.DAOTransfer;
 import DAO.DAOWithdraw;
 import Entities.Account;
-import Entities.Customer;
 import Entities.Query;
 import Entities.Transfer;
 import Entities.Withdraw;
-import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -120,8 +117,4 @@ public class BankServer {
 
         return 1;
     }
-
-    
-
-  
 }

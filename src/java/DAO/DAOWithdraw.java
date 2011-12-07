@@ -5,7 +5,7 @@
 
 package DAO;
 
-import Entities.Query;
+import Entities.Withdraw;
 import Server.MySQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,15 +18,16 @@ import java.util.logging.Logger;
  *
  * @author DinhBao
  */
-public class DAOQuery {
+public class DAOWithdraw {
 
-    public static void insertQuery(Query query){
+   public static void insertWithdraw(Withdraw withdraw){
         Connection conn = MySQLConnection.getConnection();
-        String sql = "INSERT INTO query (account_id,date)"
-                + "VALUES (?,NOW())";
+        String sql = "INSERT INTO withdraw (account_id, amount, date)"
+                + "VALUES (?, ?, NOW())";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, query.getAccountId());
+            ps.setInt(1, withdraw.getAccountId());
+            ps.setInt(2, withdraw.getAmount());
             boolean rs = ps.execute();
             conn.close();
         } catch (SQLException ex) {
@@ -34,21 +35,27 @@ public class DAOQuery {
         }
     }
 
-    public static Query getQuery(int accountId) {
-        Query query = null;
+   /**
+    * Get information withdraw from Db
+    * @param accountId
+    * @return
+    */
+   public static Withdraw getWithdraw(int accountId) {
+        Withdraw withdraw = null;
         Connection conn = MySQLConnection.getConnection();
-        String sql = "SELECT * FROM query WHERE account_id = ?";
+        String sql = "SELECT * FROM withdraw WHERE account_id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, accountId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                query = new Query();
-                query.setAccountId(accountId);
-                query.setId(rs.getInt("id"));
-                query.setDate(rs.getDate("date"));
+                withdraw = new Withdraw();
+                withdraw.setAccountId(accountId);
+                withdraw.setId(rs.getInt("id"));
+                withdraw.setAmount(rs.getInt("amount"));
+                withdraw.setDate(rs.getDate("date"));
             }
-            return query;
+            return withdraw;
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
             return null;

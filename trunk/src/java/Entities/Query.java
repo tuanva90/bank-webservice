@@ -4,11 +4,13 @@
  */
 package Entities;
 
+import java.sql.Date;
+
 public class Query {
 
     private int id;
     private int accountId;
-    private String date;
+    private Date date;
 
     public Query() {
     }
@@ -17,7 +19,7 @@ public class Query {
         this.id = id;
     }
 
-    public Query(Integer id, int accountId, String date) {
+    public Query(Integer id, int accountId, Date date) {
         this.id = id;
         this.accountId = accountId;
         this.date = date;
@@ -39,11 +41,11 @@ public class Query {
         this.accountId = accountId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

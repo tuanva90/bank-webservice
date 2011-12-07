@@ -7,10 +7,12 @@ package Server;
 import DAO.DAOAcount;
 import DAO.DAOCustomer;
 import DAO.DAOQuery;
+import DAO.DAOTransfer;
 import DAO.DAOWithdraw;
 import Entities.Account;
 import Entities.Customer;
 import Entities.Query;
+import Entities.Transfer;
 import Entities.Withdraw;
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
@@ -33,8 +35,8 @@ public class BankServer {
      * Lay thong tin trong tai khoan
      * Web service operation
      */
-    @WebMethod(operationName = "selectQueryBank")
-    public Account selectQueryBank(@WebParam(name = "accountNumber")
+    @WebMethod(operationName = "selectQueryAction")
+    public Account selectQueryAction(@WebParam(name = "accountNumber")
     int accountNumber) {
         //TODO write your implementation code here:
         Query query = new Query(accountNumber);
@@ -73,6 +75,48 @@ public class BankServer {
         withdraw.setAccountId(accountId);
         withdraw.setAmount(amount);
         DAOWithdraw.insertWithdraw(withdraw);
+
+        return 1;
+    }
+
+    /**
+     * Thuc hien viec chuyen tien
+     * return -1 neu so tien chuyen lon hon so tien trong tai khoan
+     * return 0 neu tai khoan dich khong ton tai
+     * return 1 neu yeu cau duoc chap nhan
+     * Web service operation
+     */
+    @WebMethod(operationName = "transferAction")
+    public int transferAction(@WebParam(name = "sourceAccountId")
+    int sourceAccountId, @WebParam(name = "destinationAccountId")
+    int destinationAccountId, @WebParam(name = "amount")
+    int amount) {
+        // Lay thong tin tai khoan nguon
+        Account sourceAccount = new Account();
+        sourceAccount = DAOAcount.getAccount(sourceAccountId);
+
+        // Kiem tra so tien trong tai khoan nguon
+        if(amount > sourceAccount.getAccountBalance()) return -1;
+
+        // Kiem tra su ton tai cua tai khoan dich
+        Account destinationAccount = new Account();
+        destinationAccount = DAOAcount.getAccount(destinationAccountId);
+        if(destinationAccount == null) return 0;
+
+        // Yeu cau duoc chap nhan
+        // Update tai khoan nguon
+        double cash =sourceAccount.getAccountBalance() - amount;
+        sourceAccount.setAccountBalance(cash);
+        DAOAcount.updateAccount(sourceAccount);
+
+        // Update tai khoan dich
+        cash =destinationAccount.getAccountBalance() + amount;
+        destinationAccount.setAccountBalance(cash);
+        DAOAcount.updateAccount(destinationAccount);
+
+        // Luu thong tin chuyen tien
+        Transfer transfer = new Transfer(0, sourceAccountId, destinationAccountId, amount, null);
+        DAOTransfer.insertTransfer(transfer);
 
         return 1;
     }

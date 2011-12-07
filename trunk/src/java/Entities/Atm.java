@@ -48,6 +48,7 @@ public class Atm {
     }
 
     public void setAtmPlace(String atmPlace) {
+        this.atmPlace=atmPlace;
     }
 
     public String getAtmBankname() {

@@ -11,28 +11,28 @@ package Entities;
 public class Bank {
 
     private static final long serialVersionUID = 1L;
-    private Integer bankId;
+    private int bankId;
     private String bankName;
     private String bankAddress;
 
     public Bank() {
     }
 
-    public Bank(Integer bankId) {
+    public Bank(int bankId) {
         this.bankId = bankId;
     }
 
-    public Bank(Integer bankId, String bankName, String bankAddress) {
+    public Bank(int bankId, String bankName, String bankAddress) {
         this.bankId = bankId;
         this.bankName = bankName;
         this.bankAddress = bankAddress;
     }
 
-    public Integer getBankId() {
+    public int getBankId() {
         return bankId;
     }
 
-    public void setBankId(Integer bankId) {
+    public void setBankId(int bankId) {
         this.bankId = bankId;
     }
 

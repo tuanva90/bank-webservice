@@ -6,7 +6,6 @@ package DAO;
 
 import Entities.Customer;
 import Server.MySQLConnection;
-import Tracking.Tracking;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -34,8 +34,7 @@ public class BankServer {
      * Web service operation
      */
     @WebMethod(operationName = "getAccountAction")
-    public Account getAcountAction(@WebParam(name = "accountNumber")
-    int accountNumber) {
+    public Account getAcountAction(@WebParam(name = "accountNumber") int accountNumber) {
         //TODO write your implementation code here:
         Query query = new Query(accountNumber);
         DAOQuery.insertQuery(query);    //Thuc hien viec luu thong tin truy van
@@ -50,21 +49,23 @@ public class BankServer {
      * Web service operation
      */
     @WebMethod(operationName = "withdrawAction")
-    public int withdrawAction(@WebParam(name = "accountId")
-    int accountId, @WebParam(name = "amount")
-    int amount) {
+    public int withdrawAction(@WebParam(name = "accountId") int accountId, @WebParam(name = "amount") int amount) {
         //Lay thong tin tai khoan
         Account account = new Account();
-        account=DAOAcount.getAccount(accountId);
+        account = DAOAcount.getAccount(accountId);
 
         //kiem tra so tien trong tai khoan
-        if(amount > account.getAccountBalance()) return -1;
+        if (amount > account.getAccountBalance()) {
+            return -1;
+        }
 
         //kiem tra gioi han rut tien mot ngay
-        if(DAOWithdraw.checkDailyLimit(accountId, amount) == false) return 0;
+        if (DAOWithdraw.checkDailyLimit(accountId, amount) == false) {
+            return 0;
+        }
 
         //update thong tin tai khoan
-        double cash =account.getAccountBalance() - amount;
+        double cash = account.getAccountBalance() - amount;
         account.setAccountBalance(cash);
         DAOAcount.updateAccount(account);
 
@@ -85,30 +86,31 @@ public class BankServer {
      * Web service operation
      */
     @WebMethod(operationName = "transferAction")
-    public int transferAction(@WebParam(name = "sourceAccountId")
-    int sourceAccountId, @WebParam(name = "destinationAccountId")
-    int destinationAccountId, @WebParam(name = "amount")
-    int amount) {
+    public int transferAction(@WebParam(name = "sourceAccountId") int sourceAccountId, @WebParam(name = "destinationAccountId") int destinationAccountId, @WebParam(name = "amount") int amount) {
         // Lay thong tin tai khoan nguon
         Account sourceAccount = new Account();
         sourceAccount = DAOAcount.getAccount(sourceAccountId);
 
         // Kiem tra so tien trong tai khoan nguon
-        if(amount > sourceAccount.getAccountBalance()) return -1;
+        if (amount > sourceAccount.getAccountBalance()) {
+            return -1;
+        }
 
         // Kiem tra su ton tai cua tai khoan dich
         Account destinationAccount = new Account();
         destinationAccount = DAOAcount.getAccount(destinationAccountId);
-        if(destinationAccount == null) return 0;
+        if (destinationAccount == null) {
+            return 0;
+        }
 
         // Yeu cau duoc chap nhan
         // Update tai khoan nguon
-        double cash =sourceAccount.getAccountBalance() - amount;
+        double cash = sourceAccount.getAccountBalance() - amount;
         sourceAccount.setAccountBalance(cash);
         DAOAcount.updateAccount(sourceAccount);
 
         // Update tai khoan dich
-        cash =destinationAccount.getAccountBalance() + amount;
+        cash = destinationAccount.getAccountBalance() + amount;
         destinationAccount.setAccountBalance(cash);
         DAOAcount.updateAccount(destinationAccount);
 
@@ -127,17 +129,39 @@ public class BankServer {
      * Web service operation
      */
     @WebMethod(operationName = "checkCardAction")
-    public int checkCardAction(@WebParam(name = "cardId")
-    int cardId, @WebParam(name = "cardPin")
-    int cardPin) {
-        //TODO write your implementation code here:
-
+    public int checkCardAction(@WebParam(name = "cardId") int cardId, @WebParam(name = "cardPin") int cardPin) {
         // Kiem tra ma Pin
-        if(DAOCard.confirmCard(cardId, cardPin) == false) return -1;
+        if (DAOCard.confirmCard(cardId, cardPin) == false) {
+            return -1;
+        }
 
         //Kiem tra han su dung
-        if(DAOCard.checkExpireDay(cardId) == false) return 0;
+        if (DAOCard.checkExpireDay(cardId) == false) {
+            return 0;
+        }
 
         return 1;
+    }
+
+    /***********************************************/
+    /*******************ATM Service**************************/
+    /**
+     * Web service operation
+     * Ham lay ten khach hang tu Ma The
+     */
+    @WebMethod(operationName = "getCustomerName")
+    public String getCustomerName(@WebParam(name = "cardID") int cardID) {
+        //Viet code o day
+        return "Nguyen Xuan Thao";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getBalance")
+    public double getBalance(@WebParam(name = "cardID")
+    int cardID) {
+        //TODO write your implementation code here:
+        return 0.0;
     }
 }

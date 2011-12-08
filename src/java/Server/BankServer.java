@@ -5,6 +5,7 @@
 package Server;
 
 import DAO.DAOAcount;
+import DAO.DAOCard;
 import DAO.DAOQuery;
 import DAO.DAOTransfer;
 import DAO.DAOWithdraw;
@@ -130,6 +131,13 @@ public class BankServer {
     int cardId, @WebParam(name = "cardPin")
     int cardPin) {
         //TODO write your implementation code here:
-        return 0;
+
+        // Kiem tra ma Pin
+        if(DAOCard.confirmCard(cardId, cardPin) == false) return -1;
+
+        //Kiem tra han su dung
+        if(DAOCard.checkExpireDay(cardId) == false) return 0;
+
+        return 1;
     }
 }

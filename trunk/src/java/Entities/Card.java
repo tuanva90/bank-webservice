@@ -4,12 +4,14 @@
  */
 package Entities;
 
+import java.sql.Date;
+
 public class Card {
 
     private int cardId;
     private int cardPin;
     private int customerId;
-    private int carExpiredate;
+    private Date carExpiredate;
 
     public Card() {
     }
@@ -18,7 +20,7 @@ public class Card {
         this.cardId = cardId;
     }
 
-    public Card(int cardId, int cardPin, int customerId, int carExpiredate) {
+    public Card(int cardId, int cardPin, int customerId, Date carExpiredate) {
         this.cardId = cardId;
         this.cardPin = cardPin;
         this.customerId = customerId;
@@ -49,11 +51,11 @@ public class Card {
         this.customerId = customerId;
     }
 
-    public int getCardExpiredate() {
+    public Date getCardExpiredate() {
         return carExpiredate;
     }
 
-    public void setCarExpiredate(int carExpiredate) {
+    public void setCarExpiredate(Date carExpiredate) {
         this.carExpiredate = carExpiredate;
     }
 }

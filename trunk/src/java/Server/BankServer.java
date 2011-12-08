@@ -118,5 +118,18 @@ public class BankServer {
         return 1;
     }
 
-
+    /**
+     * Thuc hien viec kiem tra ma the, ma pin va han su dung
+     * return -1 neu ma pin khong dung
+     * return 0 neu het han su dung
+     * return 1 neu viec kiem tra duoc chung thuc
+     * Web service operation
+     */
+    @WebMethod(operationName = "checkCardAction")
+    public int checkCardAction(@WebParam(name = "cardId")
+    int cardId, @WebParam(name = "cardPin")
+    int cardPin) {
+        //TODO write your implementation code here:
+        return 0;
+    }
 }

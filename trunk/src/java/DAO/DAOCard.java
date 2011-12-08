@@ -29,12 +29,12 @@ public class DAOCard {
     * @param cardPin
     * @return
     */
-    public static boolean confirmCard(int cardID, int cardPin){
+    public static boolean confirmCard(int cardId, int cardPin){
         Connection conn = MySQLConnection.getConnection();
         String sql = "SELECT * FROM card WHERE card_id=? AND card_pin=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, cardID);
+            ps.setInt(1, cardId);
             ps.setInt(2, cardPin);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -62,23 +62,33 @@ public class DAOCard {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, card.getCardPin());
             ps.setInt(2, card.getCustomerId());
-            ps.setInt(3, card.getCardExpiredate());
-            ps.executeUpdate();
+            ps.setDate(3, card.getCardExpiredate());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCard.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public static void main(String[] args) {
-       if(DAOCard.confirmCard(1, 123456)){
-           System.out.println("Da chung thuc");
-       }else{
-           System.out.println("Khong chung thuc");
-       }
+    public static boolean checkExpireDay(int cardId){
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "SELECT * FROM card WHERE card_id = ? and DATE(card_expiredate) >= DATE(NOW())";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, cardId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+               return true;
+            }else{
+                return false;
+            }
 
-      /// DAOCard.insertCard(new Card(0,123456,20,1000));
-        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCard.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+
     }
-
+    
 }

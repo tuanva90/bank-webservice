@@ -32,8 +32,8 @@ public class BankServer {
      * Lay thong tin trong tai khoan
      * Web service operation
      */
-    @WebMethod(operationName = "selectQueryAction")
-    public Account selectQueryAction(@WebParam(name = "accountNumber")
+    @WebMethod(operationName = "getAccountAction")
+    public Account getAcountAction(@WebParam(name = "accountNumber")
     int accountNumber) {
         //TODO write your implementation code here:
         Query query = new Query(accountNumber);

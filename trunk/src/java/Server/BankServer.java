@@ -78,9 +78,9 @@ public class BankServer {
 
     /**
      * Thuc hien viec chuyen tien
-     * return -1 neu so tien chuyen lon hon so tien trong tai khoan
-     * return 0 neu tai khoan dich khong ton tai
-     * return 1 neu yeu cau duoc chap nhan
+     * @return -1 neu so tien chuyen lon hon so tien trong tai khoan
+     * @return 0 neu tai khoan dich khong ton tai
+     * @return 1 neu yeu cau duoc chap nhan
      * Web service operation
      */
     @WebMethod(operationName = "transferAction")
@@ -117,4 +117,6 @@ public class BankServer {
 
         return 1;
     }
+
+
 }

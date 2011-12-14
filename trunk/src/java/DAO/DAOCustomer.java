@@ -65,7 +65,24 @@ public class DAOCustomer {
         } catch (SQLException ex) {
             Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public static void updateCustomer(Customer customer) {
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "UPDATE customer SET customer_name = ?, customer_address  = ?, customer_phone = ?, customer_email = ?"
+                + "WHERE customer_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, customer.getCustomerName());
+            ps.setString(2, customer.getCustomerAddress());
+            ps.setString(3, customer.getCustomerPhone());
+            ps.setString(4, customer.getCustomerEmail());
+            ps.setInt(5, customer.getCustomerId());
+            boolean rs = ps.execute();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
   

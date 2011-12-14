@@ -181,4 +181,23 @@ public class BankServer {
         DAOAtm.insertAtm(atm);
         return 1;
     }
+
+    /**
+     * update lai thong tin cua may ATM
+     * Web service operation
+     */
+    @WebMethod(operationName = "updateAtmAction")
+    public int updateAtmAction(@WebParam(name = "atmId")
+    int atmId, @WebParam(name = "atmPlace")
+    String atmPlace, @WebParam(name = "atmBankname")
+    String atmBankname, @WebParam(name = "atmBankaddress")
+    String atmBankaddress, @WebParam(name = "atmLog")
+    String atmLog, @WebParam(name = "atmIswitchon")
+    Boolean atmIswitchon, @WebParam(name = "atmIsinsertedcard")
+    Boolean atmIsinsertedcard) {
+        //TODO write your implementation code here:
+        Atm atm = new Atm(atmId, atmPlace, atmBankname, atmBankaddress, atmLog, atmIswitchon, atmIsinsertedcard);
+        DAOAtm.updateAtm(atm);
+        return 1;
+    }
 }

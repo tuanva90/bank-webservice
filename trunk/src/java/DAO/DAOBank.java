@@ -62,4 +62,23 @@ public class DAOBank {
         }
     }
 
+    /**
+     * update lai thong tin cua ngan hang
+     * @param bank
+     */
+    public static void updateBank(Bank bank){
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "UPDATE bank SET bank_name = ?, bank_address =?"
+                + "WHERE bank_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, bank.getBankName());
+            ps.setString(2, bank.getBankAddress());
+            ps.setInt(3, bank.getBankId());
+            boolean rs = ps.execute();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

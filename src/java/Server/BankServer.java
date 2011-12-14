@@ -5,11 +5,13 @@
 package Server;
 
 import DAO.DAOAcount;
+import DAO.DAOAtm;
 import DAO.DAOCard;
 import DAO.DAOQuery;
 import DAO.DAOTransfer;
 import DAO.DAOWithdraw;
 import Entities.Account;
+import Entities.Atm;
 import Entities.Query;
 import Entities.Transfer;
 import Entities.Withdraw;
@@ -163,5 +165,20 @@ public class BankServer {
     int cardID) {
         //TODO write your implementation code here:
         return 0.0;
+    }
+
+    /**
+     * Thêm một máy Atm vào hệ thống
+     * Web service operation
+     */
+    @WebMethod(operationName = "addAtmAction")
+    public int addAtmAction(@WebParam(name = "atmPlace")
+    String atmPlace, @WebParam(name = "atmBankname")
+    String atmBankname, @WebParam(name = "atmBankaddress")
+    String atmBankaddress) {
+        //TODO write your implementation code here:
+        Atm atm = new Atm(1, atmPlace, atmBankname, atmBankaddress, "", false, false);
+        DAOAtm.insertAtm(atm);
+        return 1;
     }
 }

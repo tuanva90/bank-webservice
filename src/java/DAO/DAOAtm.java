@@ -70,4 +70,29 @@ public class DAOAtm {
             return null;
         }
     }
+
+    /**
+     * Cập nhật lại thông tin của máy ATM
+     * @param atm
+     */
+    public static void updateAtm(Atm atm){
+        Connection conn = MySQLConnection.getConnection();
+        String sql = "UPDATE atm SET atm_place = ?, atm_bankname = ?, atm_bankaddress = ?, atm_log = ?"
+                + ",atm_iswitchon = ?, atm_isinsertedcard = ? "
+                + "WHERE atmId = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, atm.getAtmPlace());
+            ps.setString(2, atm.getAtmBankname());
+            ps.setString(3, atm.getAtmBankaddress());
+            ps.setString(4, atm.getAtmLog());
+            ps.setBoolean(5, atm.getAtmIswitchon());
+            ps.setBoolean(6, atm.getAtmIsinsertedcard());
+            ps.setInt(7, atm.getAtmId());
+            boolean rs = ps.execute();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
